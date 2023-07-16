@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, nativeTheme } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 
 const isDev:boolean = true;
@@ -16,21 +16,6 @@ const createWindow = async ():Promise<void> => {
     if (isDev) {
         win.webContents.openDevTools();
     }
-
-    ipcMain.handle('dark-mode:toggle', () => {
-    if (nativeTheme.shouldUseDarkColors) {
-        nativeTheme.themeSource = 'light'
-    } else {
-        nativeTheme.themeSource = 'dark'
-    }
-    return nativeTheme.shouldUseDarkColors
-    })
-
-    ipcMain.handle('dark-mode:system', () => {
-    nativeTheme.themeSource = 'system'
-    })
-
-
     //listener for img
     ipcMain.on("download", (event, {payload}) =>{
         console.log(`download from app.ts`)

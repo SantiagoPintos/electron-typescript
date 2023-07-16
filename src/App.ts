@@ -29,6 +29,13 @@ const createWindow = async ():Promise<void> => {
     ipcMain.handle('dark-mode:system', () => {
     nativeTheme.themeSource = 'system'
     })
+
+
+    //listener for img
+    ipcMain.on("download", (event, {payload}) =>{
+        console.log(`download from app.ts`)
+        win.webContents.downloadURL(payload.url);
+    })
 };
 
 app.whenReady().then(() => {

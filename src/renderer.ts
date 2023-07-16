@@ -7,8 +7,18 @@ const download = (url:string) => {
 })
 }
 
+const isUrl = (str: string) => {
+    try {
+        new URL(str);
+        return true;
+    } catch (error) {
+        console.log(`Not a URL ${error}`);
+        return false;  
+    }
+}
+
 document.querySelector("#download-img")!.addEventListener('click', () => {
     const URL = document.querySelector<HTMLInputElement>("#download-url")!.value;
-    download(URL);
+    isUrl(URL) ? download(URL) : console.error("URL empty");
 });
 
